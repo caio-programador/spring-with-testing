@@ -2,11 +2,13 @@ package com.caioprogramador.restwithspringandtesting;
 
 import com.caioprogramador.restwithspringandtesting.entities.Person;
 import com.caioprogramador.restwithspringandtesting.exceptions.ResourceNotFoundException;
+import com.caioprogramador.restwithspringandtesting.exceptions.UniqueFieldException;
 import com.caioprogramador.restwithspringandtesting.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PersonServices {
@@ -26,6 +28,10 @@ public class PersonServices {
     }
 
     public Person create(Person person){
+        Optional<Person> savedPerson = personRepository.findByEmail(person.getEmail());
+        if(savedPerson.isPresent()){
+            throw new UniqueFieldException("This email is already in use");
+        }
         return personRepository.save(person);
     }
 
