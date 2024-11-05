@@ -26,10 +26,9 @@ public class PersonController {
 	}
 
 	@GetMapping("/{id}")
-	public Person findById(@PathVariable Long id) {
-		return service.findById(id);
+	public ResponseEntity<Person> findById(@PathVariable Long id) {
+		return ResponseEntity.ok(service.findById(id));
 	}
-
 	@PostMapping
 	public Person create(@RequestBody Person person) {
 		return service.create(person);
