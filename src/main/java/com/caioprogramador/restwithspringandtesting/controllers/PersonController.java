@@ -19,8 +19,7 @@ public class PersonController {
         this.service = service;
     }
 
-	@RequestMapping(method=RequestMethod.GET,
-			produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping
 	public List<Person> findAll() {
 		return service.findAll();
 	}
